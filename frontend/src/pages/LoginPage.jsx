@@ -5,6 +5,7 @@ import * as api from '../services/api';
 
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: '', password: '', firstName: '', lastName: '', email: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -79,18 +80,40 @@ export default function LoginPage() {
                   </div>
                 </>
               )}
-              <div className="form-group">
+              <div className="form-group relative">
                 <label className="form-label">Password</label>
-                <input
-                  className="form-input"
-                  name="password"
-                  type="password"
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                  autoComplete={isRegister ? 'new-password' : 'current-password'}
-                  minLength={5}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    className="form-input"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={form.password}
+                    onChange={handleChange}
+                    required
+                    autoComplete={isRegister ? 'new-password' : 'current-password'}
+                    minLength={5}
+                    style={{ paddingRight: '40px' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      color: 'var(--charcoal)',
+                      padding: '4px'
+                    }}
+                    title={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? '👁️‍🗨️' : '👁️'}
+                  </button>
+                </div>
               </div>
               <button className="btn btn-primary btn-block" disabled={loading} type="submit">
                 {loading ? <span className="spinner"></span> : (isRegister ? 'Register' : 'Login')}
@@ -104,11 +127,16 @@ export default function LoginPage() {
               )}
             </div>
 
-            <div className="mt-6" style={{ borderTop: '2px solid var(--charcoal)', paddingTop: '16px' }}>
-              <div className="text-center text-sm text-muted mb-3 font-mono">DEMO LOGINS</div>
-              <div className="grid grid-2 gap-2">
+            <div className="mt-6" style={{ 
+              border: '2px dashed var(--charcoal)', 
+              padding: '16px',
+              backgroundColor: 'var(--sage-light)',
+              borderRadius: '0px'
+            }}>
+              <div className="text-center text-sm mb-3 font-mono" style={{ fontWeight: 'bold' }}>⚡️ QUICK DEMO LOGINS</div>
+              <div className="grid grid-2 gap-3">
                 <button 
-                  className="btn btn-sm btn-sage" 
+                  className="btn btn-sm btn-teal" 
                   onClick={() => {
                     api.login('retro_seller', 'password123').then(res => { loginUser(res); navigate('/'); }).catch(err => setError(err.message));
                   }}
@@ -116,7 +144,7 @@ export default function LoginPage() {
                   Demo Seller
                 </button>
                 <button 
-                  className="btn btn-sm btn-teal"
+                  className="btn btn-sm btn-coral"
                   onClick={() => {
                     api.login('vintage_buyer', 'password123').then(res => { loginUser(res); navigate('/'); }).catch(err => setError(err.message));
                   }}
