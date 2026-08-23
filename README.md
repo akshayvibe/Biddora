@@ -83,33 +83,32 @@ npm run dev
 
 ---
 
-## 🌍 How to Deploy (Make it Live!)
+## 🏗 System Architecture
 
-If you want to put Biddora on the internet for your recruiter to see, here is the easiest approach using modern hosting providers:
+The following diagram illustrates the high-level architecture of Biddora, highlighting how the React client interacts with the Spring Boot backend via REST and WebSockets, and how the backend manages data persistence and caching.
 
-### Step 1: Prepare the Database
-You need a managed PostgreSQL database. 
-- **Recommendation:** Use [Supabase](https://supabase.com/) or [Neon](https://neon.tech/) (both have great free tiers).
-- Update your backend `application.yml` (or environment variables) with the connection string they provide you.
-
-### Step 2: Deploy the Backend (Render or Railway)
-Because the backend uses WebSockets and Spring Boot, [Render.com](https://render.com/) or [Railway.app](https://railway.app/) are perfect.
-1. Connect your GitHub repository to Railway.
-2. Railway will automatically detect the Java Maven project in the `backend/` folder.
-3. Set your environment variables (e.g., `JWT_SECRET`, `SPRING_DATASOURCE_URL`).
-4. Click Deploy! You will get a live URL (e.g., `https://biddora-backend.up.railway.app`).
-
-### Step 3: Deploy the Frontend (Vercel)
-[Vercel](https://vercel.com/) is the easiest place to host a Vite/React frontend.
-1. In `frontend/src/services/api.js`, change `http://localhost:8080/api` to your new live backend URL (e.g., `https://biddora-backend.up.railway.app/api`).
-2. Push this change to GitHub.
-3. Connect your GitHub repo to Vercel.
-4. Set the Root Directory to `frontend`.
-5. Click Deploy!
-
-Your app is now live and accessible to anyone in the world! 
+```mermaid
+graph TD
+    Client["💻 Client (React/Vite)"] <-->|"REST (JSON) & WebSocket (STOMP)"| API["🚀 Spring Boot Backend"]
+    
+    subgraph "Backend Services"
+        API --> Auth["🔐 Spring Security (JWT)"]
+        API --> Controllers["📡 REST Controllers"]
+        API --> Sockets["⚡ WebSocket Broker"]
+        
+        Controllers --> Service["⚙️ Business Logic Layer"]
+        Sockets --> Service
+        Auth --> Service
+        
+        Service --> JPA["🗄️ Spring Data JPA"]
+        Service -.->|"@Cacheable (60m TTL)"| CacheConfig["🚀 Redis Cache Manager"]
+    end
+    
+    JPA <--> DB[("🐘 PostgreSQL Database")]
+    CacheConfig <--> Redis[("🔴 Redis In-Memory Store")]
+```
 
 ---
 
 ## 🤝 Author
-Built by **Akshay Kumar Mishra** & **Mirza Felić**.
+Built by **Akshay Kumar Mishra** 
