@@ -427,7 +427,13 @@ h4 { font-size: 0.95rem; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
   .grid-2, .grid-3 {
     grid-template-columns: 1fr;
   }

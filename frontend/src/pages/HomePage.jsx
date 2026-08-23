@@ -56,26 +56,26 @@ export default function HomePage() {
         {/* Filters bar */}
         <div className="panel mb-4">
           <div className="panel-body" style={{ padding: '8px 16px' }}>
-            <form onSubmit={handleSearch} className="flex flex-center gap-3" style={{ flexWrap: 'wrap' }}>
+            <form onSubmit={handleSearch} className="flex gap-3" style={{ flexWrap: 'wrap', alignItems: 'center' }}>
               <input
                 className="form-input"
                 placeholder="Search products..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                style={{ maxWidth: 220 }}
+                style={{ flex: '1 1 200px' }}
               />
-              <select className="form-select" value={filter} onChange={e => { setFilter(e.target.value); setPage(0); }} style={{ maxWidth: 140 }}>
+              <select className="form-select" value={filter} onChange={e => { setFilter(e.target.value); setPage(0); }} style={{ flex: '0 1 140px' }}>
                 <option value="">All status</option>
                 <option value="OPEN">Open</option>
                 <option value="SCHEDULED">Scheduled</option>
                 <option value="CLOSED">Closed</option>
               </select>
-              <select className="form-select" value={sort} onChange={e => { setSort(e.target.value); setPage(0); }} style={{ maxWidth: 150 }}>
+              <select className="form-select" value={sort} onChange={e => { setSort(e.target.value); setPage(0); }} style={{ flex: '0 1 160px' }}>
                 <option value="">Sort: Name</option>
                 <option value="price-high">Price: High → Low</option>
                 <option value="price-low">Price: Low → High</option>
               </select>
-              <button className="btn btn-sm" type="submit">Search</button>
+              <button className="btn btn-sm" type="submit" style={{ flex: '0 0 auto' }}>Search</button>
             </form>
           </div>
         </div>
