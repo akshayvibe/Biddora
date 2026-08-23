@@ -1,110 +1,115 @@
-# Biddora – Real-Time Auction Backend
-
-## Overview
-Biddora is a backend system for a real-time auction platform where users place live bids on products and receive instant updates via WebSocket connections.
-The application is designed with a strong focus on security, data consistency, and performance under concurrent access.
-
-It implements JWT-based authentication and role-based authorization using Spring Security, ensuring secure access to both REST APIs and WebSocket sessions.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/akshayvibe/Biddora/main/docs/home.png" alt="Biddora Home" width="800" />
+  <h1>Biddora ⚡️</h1>
+  <p><strong>A Real-Time, Full-Stack Auction Platform featuring a bold Neo-Brutalist UI</strong></p>
+</div>
 
 ---
 
-## Core Features
-- Real-time bidding using WebSockets
-- Secure REST APIs with Spring Security (JWT)
-- Role-based access control (admin / user)
-- Automated auction winner determination
-- User-scoped resources (favorites, ratings)
-- Redis caching for frequently accessed data
-- API documentation with SpringDoc OpenAPI
+## 📖 Overview
+
+**Biddora** is a comprehensive, production-ready full-stack online auction marketplace. It brings together a beautiful, custom **React frontend** with a robust, highly-concurrent **Spring Boot backend**.
+
+Whether it's vintage electronics or modern art, Biddora allows users to browse active auctions, track time remaining, and engage in **real-time live bidding** powered by WebSockets. The price updates instantly for all connected clients without page reloads.
+
+### ✨ Key Features
+
+- **Live Real-Time Bidding:** Powered by Spring WebSockets and STOMP, bids update instantly across all connected browsers.
+- **Bold Neo-Brutalist UI:** A stunning, custom-built React frontend using raw CSS tokens, distinct drop shadows, and sharp borders.
+- **Secure Authentication:** Full JWT-based login, registration, and role-based access control (RBAC).
+- **Automated Auction Resolution:** Scheduled tasks automatically determine and record auction winners when the clock runs out.
+- **User Profiles:** Users can list items, track their won auctions, and manage favorites and reviews.
+- **High Performance:** Designed to handle concurrent bids with data consistency checks and optimized PostgreSQL queries.
 
 ---
 
-## Technology Stack
+## 🛠️ Technology Stack
 
-### Backend
-- Java 17
-- Spring Boot 3.x
-- Spring Security (JWT)
-- Spring WebSocket
-- Spring Data JPA (Hibernate)
+### Frontend (Client)
+- **React 18** (Vite)
+- **Vanilla CSS** (Custom Neo-Brutalist Design System)
+- **React Router** for navigation
+- **StompJS / SockJS** for WebSocket connections
 
-### Data & Infrastructure
-- PostgreSQL
-- Redis
-- Docker
+### Backend (Server)
+- **Java 17** & **Spring Boot 3**
+- **Spring Security** (JWT Auth)
+- **Spring WebSocket** (Live messaging)
+- **Spring Data JPA** (Hibernate)
 
-### Testing & Documentation
-- JUnit 5
-- Mockito
-- SpringDoc OpenAPI (Swagger)
-
----
-
-## Architecture Overview
-The application follows a layered architecture:
-
-- Controller layer – Handles HTTP and WebSocket requests
-- Service layer – Contains business logic and validation rules
-- Repository layer – Data persistence with JPA
-- Security layer – JWT authentication and role-based authorization
-- Caching layer – Redis for optimized read performance
-
-This structure ensures clear separation of concerns, maintainability, and testability.
+### Database & Infrastructure
+- **PostgreSQL** (Relational Data)
+- **Docker & Docker Compose** (Containerization)
+- **Maven** (Build Tool)
 
 ---
 
-## Security
-- JWT-based authentication
-- Role-based authorization (admin / user)
-- Secured REST endpoints
-- Secured WebSocket connections
-- Validation and centralized exception handling
+## 📸 Interface Previews
+
+| The Marketplace | Secure Authentication |
+|:---:|:---:|
+| <img src="docs/home.png" width="400" alt="Home page"> | <img src="docs/login.png" width="400" alt="Login page"> |
+
+*(Note: Biddora features a completely custom CSS framework focusing on contrast, legibility, and physical button presses.)*
 
 ---
 
-## Performance Considerations
-- Redis caching is used to reduce database load for frequently accessed product and auction data
-- Bid validation logic ensures data consistency during concurrent bidding
-- Optimized query usage through JPA and pagination
+## 🚀 Running Locally
+
+Biddora is neatly organized into two directories: `/backend` and `/frontend`.
+
+### 1. Start the Database
+The backend relies on PostgreSQL. A convenient `docker-compose.yml` is provided in the root directory.
+```bash
+docker-compose up -d
+```
+
+### 2. Start the Backend
+Navigate to the backend directory and run the Spring Boot application using the Maven wrapper.
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+*The backend API will run on `http://localhost:8080`.*
+
+### 3. Start the Frontend
+In a new terminal, navigate to the frontend directory, install dependencies, and start the Vite dev server.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*The UI will run on `http://localhost:5173`.*
 
 ---
 
-## Running the Application
+## 🌍 How to Deploy (Make it Live!)
 
-### Prerequisites
-- Java 17
-- Docker & Docker Compose
+If you want to put Biddora on the internet for your recruiter to see, here is the easiest approach using modern hosting providers:
 
-### Environment Variables
-SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/biddora  
-SPRING_DATASOURCE_USERNAME=postgres  
-SPRING_DATASOURCE_PASSWORD=postgres
+### Step 1: Prepare the Database
+You need a managed PostgreSQL database. 
+- **Recommendation:** Use [Supabase](https://supabase.com/) or [Neon](https://neon.tech/) (both have great free tiers).
+- Update your backend `application.yml` (or environment variables) with the connection string they provide you.
 
-JWT_SECRET=your_jwt_secret  
-REDIS_HOST=localhost  
-REDIS_PORT=6379
+### Step 2: Deploy the Backend (Render or Railway)
+Because the backend uses WebSockets and Spring Boot, [Render.com](https://render.com/) or [Railway.app](https://railway.app/) are perfect.
+1. Connect your GitHub repository to Railway.
+2. Railway will automatically detect the Java Maven project in the `backend/` folder.
+3. Set your environment variables (e.g., `JWT_SECRET`, `SPRING_DATASOURCE_URL`).
+4. Click Deploy! You will get a live URL (e.g., `https://biddora-backend.up.railway.app`).
 
-### Start with Docker
-docker-compose up --build
+### Step 3: Deploy the Frontend (Vercel)
+[Vercel](https://vercel.com/) is the easiest place to host a Vite/React frontend.
+1. In `frontend/src/services/api.js`, change `http://localhost:8080/api` to your new live backend URL (e.g., `https://biddora-backend.up.railway.app/api`).
+2. Push this change to GitHub.
+3. Connect your GitHub repo to Vercel.
+4. Set the Root Directory to `frontend`.
+5. Click Deploy!
 
-The backend will be available at:
-- API: http://localhost:8080
-- Swagger UI: http://localhost:8080/swagger-ui.html
-
----
-
-## Testing
-- Unit and integration tests implemented using JUnit 5 and Mockito
-- Focus on service-layer logic and security-related components
+Your app is now live and accessible to anyone in the world! 
 
 ---
 
-## Project Status
-This project represents a production-oriented backend system designed to reflect real-world requirements such as authentication, authorization, concurrency handling, and performance optimization.
-
----
-
-## Author
-Mirza Felić  
-Backend Engineer (Java / Spring)
-# Biddora
+## 🤝 Author
+Built by **Akshay Kumar Mishra** & **Mirza Felić**.
