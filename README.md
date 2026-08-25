@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/akshayvibe/Biddora/main/docs/home.png" alt="Biddora Home" width="800" />
-  <h1>Biddora ⚡️</h1>
+  <img src="https://raw.githubusercontent.com/akshayvibe/BidForge/main/docs/home.png" alt="BidForge Home" width="800" />
+  <h1>BidForge ⚡️</h1>
   <p><strong>A Real-Time, Full-Stack Auction Platform featuring a bold Neo-Brutalist UI</strong></p>
 </div>
 
@@ -10,7 +10,7 @@
 
 **BidForge** is a comprehensive, production-ready full-stack online auction marketplace. It brings together a beautiful, custom **React frontend** with a robust, highly-concurrent **Spring Boot backend**.
 
-Whether it's vintage electronics or modern art, Biddora allows users to browse active auctions, track time remaining, and engage in **real-time live bidding** powered by WebSockets. The price updates instantly for all connected clients without page reloads.
+Whether it's vintage electronics or modern art, BidForge allows users to browse active auctions, track time remaining, and engage in **real-time live bidding** powered by WebSockets. The price updates instantly for all connected clients without page reloads.
 
 ### ✨ Key Features
 
@@ -50,13 +50,13 @@ Whether it's vintage electronics or modern art, Biddora allows users to browse a
 |:---:|:---:|
 | <img src="docs/home.png" width="400" alt="Home page"> | <img src="docs/login.png" width="400" alt="Login page"> |
 
-*(Note: Biddora features a completely custom CSS framework focusing on contrast, legibility, and physical button presses.)*
+*(Note: BidForge features a completely custom CSS framework focusing on contrast, legibility, and physical button presses.)*
 
 ---
 
 ## 🚀 Running Locally
 
-Biddora is neatly organized into two directories: `/backend` and `/frontend`.
+BidForge is neatly organized into two directories: `/backend` and `/frontend`.
 
 ### 1. Start the Database
 The backend relies on PostgreSQL. A convenient `docker-compose.yml` is provided in the root directory.
@@ -85,7 +85,7 @@ npm run dev
 
 ## 🏗 System Architecture
 
-The following diagram illustrates the high-level architecture of Biddora, highlighting how the React client interacts with the Spring Boot backend via REST and WebSockets, and how the backend manages data persistence and caching.
+The following diagram illustrates the high-level architecture of BidForge, highlighting how the React client interacts with the Spring Boot backend via REST and WebSockets, and how the backend manages data persistence and caching.
 
 ```mermaid
 graph TD
