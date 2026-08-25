@@ -8,7 +8,7 @@
 
 ## 📖 Overview
 
-**Biddora** is a comprehensive, production-ready full-stack online auction marketplace. It brings together a beautiful, custom **React frontend** with a robust, highly-concurrent **Spring Boot backend**.
+**BidForge** is a comprehensive, production-ready full-stack online auction marketplace. It brings together a beautiful, custom **React frontend** with a robust, highly-concurrent **Spring Boot backend**.
 
 Whether it's vintage electronics or modern art, Biddora allows users to browse active auctions, track time remaining, and engage in **real-time live bidding** powered by WebSockets. The price updates instantly for all connected clients without page reloads.
 
